@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   ## Game Routes ##
   get '/games' => 'games#index'
-  get '/games/:id' => 'games#user_index'
+  get '/user_games' => 'games#user_index'
 end

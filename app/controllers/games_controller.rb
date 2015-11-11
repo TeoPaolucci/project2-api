@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   end
 
   def user_index
-    render json: Game.where('user_id = ?', params[:id])
+    render json: Game.where('user_id = ?', current_user.id)
   end
 
   def create
