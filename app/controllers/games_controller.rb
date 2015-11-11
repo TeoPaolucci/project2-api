@@ -35,7 +35,14 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    render json: ['DESTROY']
+    @game = Game.find(params[:id])
+
+    if @game.user_id != current_user.id
+      render json: ['This isn\'t your record! You can\'t delete this!'], status: :unprocessable_entity
+    else
+      @game.destroy
+      head :ok
+    end
   end
 
   private
