@@ -18,8 +18,20 @@ class GamesController < ApplicationController
     end
   end
 
+  def show
+    render json: Game.find(params[:id])
+  end
+
   def update
-    render json: ['UPDATE']
+    @game = Game.find(params[:id])
+
+    if @game.user_id != current_user.id
+      render json: ['This isn\'t your record! You can\'t update this!'], status: :unprocessable_entity
+    elsif @game.update_attributes(game_params)
+      render json: @game, status: :updated
+    else
+      render json: @game.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
