@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   ## Game Routes ##
   get '/games' => 'games#index'
   get '/user_games' => 'games#user_index'
+  post '/games' => 'games#create'
 end

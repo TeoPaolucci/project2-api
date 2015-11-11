@@ -8,7 +8,14 @@ class GamesController < ApplicationController
   end
 
   def create
-    render json: ['CREATE']
+    @game = Game.new(game_params)
+    @game.user_id = current_user.id
+
+    if @game.save
+      render json: @game, status: :created
+    else
+      render json: @game.errors, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -17,5 +24,14 @@ class GamesController < ApplicationController
 
   def destroy
     render json: ['DESTROY']
+  end
+
+  private
+  def game_params
+    params.require(:game).permit([
+      :discs,
+      :moves,
+      :time
+    ])
   end
 end
